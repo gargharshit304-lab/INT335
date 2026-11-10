@@ -1,0 +1,354 @@
+import React, { useState } from 'react';
+import {
+  BarChart3,
+  TrendingUp,
+  Droplets,
+  Moon,
+  Utensils,
+  Coffee,
+  CheckCircle2,
+  Calendar,
+  Sparkles,
+  Info,
+  Clock,
+} from 'lucide-react';
+import {
+  AreaChart,
+  Area,
+  BarChart,
+  Bar,
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+  ReferenceLine,
+} from 'recharts';
+import { useApp } from '../context/AppContext';
+
+export default function ProgressPage() {
+  const {
+    weeklyAnalytics,
+    hydrationTarget,
+    routines,
+    currentWaterIntake,
+    sleepRecords,
+    mealCheckins,
+  } = useApp();
+
+  const [timeRange, setTimeRange] = useState('7d'); // '7d' | '14d' | '30d'
+
+  // Dynamic descriptive insights generated from state
+  const completedRoutinesCount = routines.filter((r) => r.completed).length;
+  const avgSleep = (
+    sleepRecords.reduce((acc, curr) => acc + curr.durationHours, 0) /
+    sleepRecords.length
+  ).toFixed(1);
+
+  const insights = [
+    {
+      id: 1,
+      title: 'Routine Consistency Trend',
+      desc: `You completed ${completedRoutinesCount} routine activities today. Your completion pace indicates steady exam preparation without cramming.`,
+      tag: 'Routine',
+      color: 'text-purple-600 bg-purple-50 border-purple-100',
+    },
+    {
+      id: 2,
+      title: 'Circadian Sleep Rhythm',
+      desc: `Your 7-day average sleep duration stands at ${avgSleep} hours per night, safely within the restorative memory consolidation band.`,
+      tag: 'Sleep',
+      color: 'text-indigo-600 bg-indigo-50 border-indigo-100',
+    },
+    {
+      id: 3,
+      title: 'Hydration Intake Pattern',
+      desc: `Hydration logged on all 7 recorded days this week. Peak intake observed during afternoon revision blocks.`,
+      tag: 'Hydration',
+      color: 'text-sky-600 bg-sky-50 border-sky-100',
+    },
+    {
+      id: 4,
+      title: 'Nourishment Regularity',
+      desc: `Meal check-ins indicate breakfast and afternoon nourishment were prioritized, preventing midday cognitive crashes.`,
+      tag: 'Nutrition',
+      color: 'text-emerald-600 bg-emerald-50 border-emerald-100',
+    },
+  ];
+
+  // Calendar Heatmap Mock for 28 Days (4 weeks)
+  const calendarDays = [
+    { day: 1, rate: 85 }, { day: 2, rate: 70 }, { day: 3, rate: 90 }, { day: 4, rate: 80 }, { day: 5, rate: 75 }, { day: 6, rate: 85 }, { day: 7, rate: 95 },
+    { day: 8, rate: 90 }, { day: 9, rate: 65 }, { day: 10, rate: 88 }, { day: 11, rate: 92 }, { day: 12, rate: 80 }, { day: 13, rate: 75 }, { day: 14, rate: 85 },
+    { day: 15, rate: 90 }, { day: 16, rate: 82 }, { day: 17, rate: 78 }, { day: 18, rate: 88 }, { day: 19, rate: 95 }, { day: 20, rate: 90 }, { day: 21, rate: 85 },
+    { day: 22, rate: 70 }, { day: 23, rate: 80 }, { day: 24, rate: 88 }, { day: 25, rate: 92 }, { day: 26, rate: 85 }, { day: 27, rate: 95 }, { day: 28, rate: 78 },
+  ];
+
+  const getHeatmapColor = (rate) => {
+    if (rate >= 90) return 'bg-[#8B5CF6] text-white';
+    if (rate >= 80) return 'bg-[#A78BFA] text-white';
+    if (rate >= 70) return 'bg-[#C4B5FD] text-purple-900';
+    return 'bg-[#DDD6FE] text-purple-900';
+  };
+
+  return (
+    <div className="space-y-6 animate-in fade-in duration-300">
+      {/* Header */}
+      <div className="bg-white border border-[#ECE9F2] rounded-3xl p-6 sm:p-8 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div>
+          <div className="flex items-center gap-2 mb-2">
+            <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#F0EBFF] text-[#6D28D9] border border-purple-100 flex items-center gap-1.5">
+              <BarChart3 className="w-3.5 h-3.5 text-[#8B5CF6]" />
+              Routine Analytics & Balance Metrics
+            </span>
+          </div>
+          <h2 className="text-2xl font-extrabold font-heading text-[#242039]">
+            My Exam Week Progress
+          </h2>
+          <p className="text-sm text-[#858197] mt-1 max-w-xl">
+            Descriptive analysis of your daily habits, hydration consistency, sleep timing, and study breaks during examination week.
+          </p>
+        </div>
+
+        {/* Time Range Filter Buttons */}
+        <div className="flex items-center gap-1.5 p-1 bg-[#FAF9FC] border border-[#ECE9F2] rounded-2xl self-start md:self-auto">
+          {[
+            { id: '7d', label: 'Last 7 Days' },
+            { id: '14d', label: 'Last 14 Days' },
+            { id: '30d', label: 'Last 30 Days' },
+          ].map((r) => (
+            <button
+              key={r.id}
+              onClick={() => setTimeRange(r.id)}
+              className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
+                timeRange === r.id
+                  ? 'bg-white text-[#8B5CF6] shadow-xs border border-[#ECE9F2]'
+                  : 'text-[#858197] hover:text-[#242039]'
+              }`}
+            >
+              {r.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Generated Insights Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        {insights.map((ins) => (
+          <div
+            key={ins.id}
+            className="bg-white border border-[#ECE9F2] rounded-3xl p-5 shadow-xs flex flex-col justify-between"
+          >
+            <div>
+              <span
+                className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full border inline-block mb-2 ${ins.color}`}
+              >
+                {ins.tag} Insight
+              </span>
+              <h4 className="text-sm font-bold font-heading text-[#242039] mb-1">
+                {ins.title}
+              </h4>
+              <p className="text-xs text-[#858197] leading-relaxed">{ins.desc}</p>
+            </div>
+            <div className="pt-3 mt-3 border-t border-[#ECE9F2] flex items-center justify-between text-[11px] text-[#858197]">
+              <span>Sample analytics</span>
+              <Sparkles className="w-3 h-3 text-[#8B5CF6]" />
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Charts Grid: Routine Completion Rate & Hydration History */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Routine Completion Trend */}
+        <div className="bg-white border border-[#ECE9F2] rounded-3xl p-6 sm:p-8 shadow-xs">
+          <div className="flex items-center justify-between pb-3 border-b border-[#ECE9F2] mb-4">
+            <div>
+              <h3 className="text-base font-bold font-heading text-[#242039] flex items-center gap-2">
+                Routine Completion Rate (%)
+                <TrendingUp className="w-4 h-4 text-[#8B5CF6]" />
+              </h3>
+              <p className="text-xs text-[#858197] mt-0.5">
+                Target: Maintain &ge;80% daily schedule fulfillment
+              </p>
+            </div>
+            <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-[#F0EBFF] text-[#6D28D9]">
+              Overall 81%
+            </span>
+          </div>
+
+          <div className="h-56 w-full pt-2">
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart data={weeklyAnalytics} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                <defs>
+                  <linearGradient id="purpleGrad2" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#8B5CF6" stopOpacity={0.35} />
+                    <stop offset="95%" stopColor="#8B5CF6" stopOpacity={0.0} />
+                  </linearGradient>
+                </defs>
+                <XAxis dataKey="day" tickLine={false} axisLine={{ stroke: '#ECE9F2' }} tick={{ fill: '#858197', fontSize: 11 }} />
+                <YAxis domain={[0, 100]} tickLine={false} axisLine={{ stroke: '#ECE9F2' }} tick={{ fill: '#858197', fontSize: 11 }} tickFormatter={(v) => `${v}%`} />
+                <Tooltip />
+                <ReferenceLine y={80} stroke="#10B981" strokeDasharray="3 3" />
+                <Area type="monotone" dataKey="routineRate" stroke="#8B5CF6" strokeWidth={2.5} fill="url(#purpleGrad2)" />
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+
+        {/* Hydration Volume History */}
+        <div className="bg-white border border-[#ECE9F2] rounded-3xl p-6 sm:p-8 shadow-xs">
+          <div className="flex items-center justify-between pb-3 border-b border-[#ECE9F2] mb-4">
+            <div>
+              <h3 className="text-base font-bold font-heading text-[#242039] flex items-center gap-2">
+                Hydration Volume (ml)
+                <Droplets className="w-4 h-4 text-sky-500 fill-current" />
+              </h3>
+              <p className="text-xs text-[#858197] mt-0.5">
+                Baseline goal: {hydrationTarget} ml / day
+              </p>
+            </div>
+            <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-sky-50 text-sky-700">
+              Avg 2,300ml
+            </span>
+          </div>
+
+          <div className="h-56 w-full pt-2">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={weeklyAnalytics} margin={{ top: 10, right: 10, left: -15, bottom: 0 }}>
+                <XAxis dataKey="day" tickLine={false} axisLine={{ stroke: '#ECE9F2' }} tick={{ fill: '#858197', fontSize: 11 }} />
+                <YAxis domain={[0, 3000]} tickLine={false} axisLine={{ stroke: '#ECE9F2' }} tick={{ fill: '#858197', fontSize: 11 }} tickFormatter={(v) => `${v}ml`} />
+                <Tooltip />
+                <ReferenceLine y={hydrationTarget} stroke="#0284C7" strokeDasharray="3 3" />
+                <Bar dataKey="waterMl" fill="#38BDF8" radius={[6, 6, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+      </div>
+
+      {/* Sleep & Breaks Comparison Row */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Sleep Hours Trend */}
+        <div className="bg-white border border-[#ECE9F2] rounded-3xl p-6 sm:p-8 shadow-xs">
+          <div className="flex items-center justify-between pb-3 border-b border-[#ECE9F2] mb-4">
+            <div>
+              <h3 className="text-base font-bold font-heading text-[#242039] flex items-center gap-2">
+                Sleep Consistency (Hours)
+                <Moon className="w-4 h-4 text-indigo-500" />
+              </h3>
+              <p className="text-xs text-[#858197] mt-0.5">
+                Recommended 7.0 - 8.5h window
+              </p>
+            </div>
+            <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700">
+              Avg 7.5h
+            </span>
+          </div>
+
+          <div className="h-52 w-full pt-2">
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={weeklyAnalytics} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                <XAxis dataKey="day" tickLine={false} axisLine={{ stroke: '#ECE9F2' }} tick={{ fill: '#858197', fontSize: 11 }} />
+                <YAxis domain={[5, 9]} tickLine={false} axisLine={{ stroke: '#ECE9F2' }} tick={{ fill: '#858197', fontSize: 11 }} tickFormatter={(v) => `${v}h`} />
+                <Tooltip />
+                <ReferenceLine y={7.5} stroke="#6366F1" strokeDasharray="3 3" />
+                <Line type="monotone" dataKey="sleepHours" stroke="#6366F1" strokeWidth={2.5} dot={{ r: 4, fill: '#6366F1' }} />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+
+        {/* Study Breaks & Meals Adherence */}
+        <div className="bg-white border border-[#ECE9F2] rounded-3xl p-6 sm:p-8 shadow-xs flex flex-col justify-between">
+          <div>
+            <div className="flex items-center justify-between pb-3 border-b border-[#ECE9F2] mb-4">
+              <h3 className="text-base font-bold font-heading text-[#242039] flex items-center gap-2">
+                Rest & Fuel Maintenance
+                <Coffee className="w-4 h-4 text-amber-500" />
+              </h3>
+              <span className="text-xs text-[#858197]">7-Day Cumulative</span>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div className="p-4 rounded-2xl bg-[#FAF9FC] border border-[#ECE9F2]">
+                <div className="flex items-center gap-2 text-amber-600 mb-1">
+                  <Coffee className="w-4 h-4" />
+                  <span className="text-xs font-bold uppercase">Study Breaks</span>
+                </div>
+                <span className="text-2xl font-black font-heading text-[#242039]">
+                  26 Breaks
+                </span>
+                <p className="text-[11px] text-[#858197] mt-1">
+                  ~3.7 rest intervals taken per study day
+                </p>
+              </div>
+
+              <div className="p-4 rounded-2xl bg-[#FAF9FC] border border-[#ECE9F2]">
+                <div className="flex items-center gap-2 text-emerald-600 mb-1">
+                  <Utensils className="w-4 h-4" />
+                  <span className="text-xs font-bold uppercase">Meals Eaten</span>
+                </div>
+                <span className="text-2xl font-black font-heading text-[#242039]">
+                  19 Meals
+                </span>
+                <p className="text-[11px] text-[#858197] mt-1">
+                  Zero meals skipped on recorded exam prep days
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="p-3.5 rounded-2xl bg-[#E8F8F0] border border-emerald-100 flex items-center gap-3 mt-4">
+            <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
+            <p className="text-xs text-emerald-800 leading-relaxed font-medium">
+              Healthy pacing achieved: Brain fatigue is substantially reduced by combining scheduled breaks with consistent meal check-ins.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Routine Heatmap Calendar Simulation */}
+      <div className="bg-white border border-[#ECE9F2] rounded-3xl p-6 sm:p-8 shadow-xs">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-[#ECE9F2] mb-4">
+          <div>
+            <h3 className="text-base font-bold font-heading text-[#242039] flex items-center gap-2">
+              <Calendar className="w-4 h-4 text-[#8B5CF6]" />
+              Exam Prep Consistency Calendar (4 Weeks)
+            </h3>
+            <p className="text-xs text-[#858197] mt-0.5">
+              Visual map of routine completion over time
+            </p>
+          </div>
+          <div className="flex items-center gap-2 text-xs text-[#858197]">
+            <span>Low</span>
+            <div className="flex items-center gap-1">
+              <div className="w-3 h-3 rounded-xs bg-[#DDD6FE]" />
+              <div className="w-3 h-3 rounded-xs bg-[#C4B5FD]" />
+              <div className="w-3 h-3 rounded-xs bg-[#A78BFA]" />
+              <div className="w-3 h-3 rounded-xs bg-[#8B5CF6]" />
+            </div>
+            <span>High Consistency</span>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-7 sm:grid-cols-14 gap-2 pt-2">
+          {calendarDays.map((c) => (
+            <div
+              key={c.day}
+              className={`p-2 rounded-xl text-center flex flex-col items-center justify-center transition-transform hover:scale-105 cursor-default ${getHeatmapColor(
+                c.rate
+              )}`}
+              title={`Day ${c.day}: ${c.rate}% Routine Completed`}
+            >
+              <span className="text-[10px] opacity-80">D{c.day}</span>
+              <span className="text-xs font-bold">{c.rate}%</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
