@@ -21,7 +21,7 @@ export default function AppLayout() {
   }
 
   return (
-    <div className="flex h-screen bg-[#FAF9FC] overflow-hidden">
+    <div className="flex h-screen bg-[#FAFAFC] overflow-hidden">
       {/* Desktop Persistent Sidebar */}
       <div className="hidden lg:block h-full">
         <Sidebar />
@@ -31,7 +31,7 @@ export default function AppLayout() {
       {mobileDrawerOpen && (
         <div className="fixed inset-0 z-50 lg:hidden flex">
           <div
-            className="fixed inset-0 bg-black/40 backdrop-blur-xs"
+            className="fixed inset-0 bg-[#242039]/30 backdrop-blur-xs"
             onClick={() => setMobileDrawerOpen(false)}
           />
           <div className="relative w-72 max-w-[80vw] h-full bg-white shadow-2xl flex flex-col z-10 animate-in slide-in-from-left duration-200">
@@ -55,7 +55,7 @@ export default function AppLayout() {
           onQuickAddRoutine={() => setRoutineModalOpen(true)}
         />
 
-        <main className="flex-1 overflow-y-auto px-4 sm:px-8 py-6 pb-24 lg:pb-8">
+        <main className="flex-1 overflow-y-auto px-4 sm:px-8 py-5 pb-28 sm:pb-32 lg:pb-8">
           <div className="max-w-7xl mx-auto">
             <Outlet />
           </div>
@@ -80,4 +80,3 @@ export default function AppLayout() {
     </div>
   );
 }
-

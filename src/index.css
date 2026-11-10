@@ -3,73 +3,102 @@
 @theme {
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-heading: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  
+
   --color-primary: #8B5CF6;
   --color-primary-hover: #7C3AED;
-  --color-primary-light: #F0EBFF;
-  --color-primary-dark: #6D28D9;
-  --color-bg-soft: #FAF9FC;
+  --color-primary-light: #F1EBFF;
+  --color-bg-main: #FAFAFC;
+  --color-bg-secondary: #F7F5FA;
   --color-surface: #FFFFFF;
-  --color-text-charcoal: #242039;
-  --color-text-muted: #858197;
-  --color-border-subtle: #ECE9F2;
-  
-  --color-mint: #10B981;
-  --color-mint-soft: #E8F8F0;
-  --color-sky-soft: #E0F2FE;
-  --color-sky-dark: #0284C7;
-  --color-amber-soft: #FEF3C7;
-  --color-amber-dark: #D97706;
+  --color-text-dark: #242039;
+  --color-text-secondary: #817D91;
+  --color-text-muted: #A19BAD;
+  --color-border: #ECE9F2;
+
+  --color-success: #27AE82;
+  --color-success-bg: #EAF8F2;
 }
 
 @layer base {
   body {
-    background-color: #FAF9FC;
+    background-color: #FAFAFC;
     color: #242039;
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: var(--font-heading);
     letter-spacing: -0.02em;
   }
 }
 
-/* Custom scrollbars */
+/* Subtle, unobtrusive scrollbar for the scrollable routine timeline */
+.thin-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #E2DFE8 transparent;
+}
+
+.thin-scrollbar::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+.thin-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.thin-scrollbar::-webkit-scrollbar-thumb {
+  background: #E2DFE8;
+  border-radius: 9999px;
+}
+
+.thin-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #C4BDD0;
+}
+
+/* Global scrollbars */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
+
 ::-webkit-scrollbar-track {
   background: transparent;
 }
+
 ::-webkit-scrollbar-thumb {
-  background: #DDD8E8;
+  background: #ECE9F2;
   border-radius: 9999px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
-  background: #8B5CF6;
+  background: #DDD8E8;
 }
 
-/* Glass & Card Elevation */
-.saas-card {
-  background: #FFFFFF;
+/* Premium Apple-inspired SaaS card styling */
+.premium-card {
   border: 1px solid #ECE9F2;
   border-radius: 20px;
-  box-shadow: 0 4px 20px -2px rgba(36, 32, 57, 0.04), 0 2px 6px -1px rgba(36, 32, 57, 0.02);
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.saas-card:hover {
-  box-shadow: 0 8px 30px -4px rgba(36, 32, 57, 0.07), 0 4px 10px -2px rgba(36, 32, 57, 0.03);
-}
-
-.saas-card-static {
   background: #FFFFFF;
+  box-shadow: 0 4px 20px rgba(36, 32, 57, 0.035);
+  transition: all 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.premium-card:hover {
+  border-color: #E0DCE8;
+  box-shadow: 0 8px 26px rgba(36, 32, 57, 0.055);
+}
+
+.premium-card-static {
   border: 1px solid #ECE9F2;
   border-radius: 20px;
-  box-shadow: 0 4px 20px -2px rgba(36, 32, 57, 0.04), 0 2px 6px -1px rgba(36, 32, 57, 0.02);
+  background: #FFFFFF;
+  box-shadow: 0 4px 20px rgba(36, 32, 57, 0.035);
 }
-

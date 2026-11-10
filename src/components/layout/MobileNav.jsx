@@ -18,7 +18,7 @@ const BOTTOM_ITEMS = [
 
 export default function MobileNav() {
   return (
-    <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-[#ECE9F2] px-2 py-2 z-40 flex items-center justify-around shadow-lg">
+    <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-[#ECE9F2] px-3 py-1.5 z-40 flex items-center justify-around shadow-xs">
       {BOTTOM_ITEMS.map((item) => {
         const Icon = item.icon;
         return (
@@ -26,19 +26,17 @@ export default function MobileNav() {
             key={item.to}
             to={item.to}
             className={({ isActive }) =>
-              `flex flex-col items-center gap-1 py-1 px-3 rounded-xl text-[10px] font-medium transition-colors ${
-                isActive
-                  ? 'text-[#8B5CF6] font-bold'
-                  : 'text-[#858197] hover:text-[#242039]'
+              `flex flex-col items-center gap-0.5 py-1 px-2.5 rounded-xl text-[10px] font-medium transition-colors ${isActive
+                ? 'text-[#8B5CF6] font-bold'
+                : 'text-[#817D91] hover:text-[#242039]'
               }`
             }
           >
             {({ isActive }) => (
               <>
                 <div
-                  className={`p-1.5 rounded-xl transition-colors ${
-                    isActive ? 'bg-[#F0EBFF]' : ''
-                  }`}
+                  className={`p-1.5 rounded-xl transition-all ${isActive ? 'bg-[#F1EBFF] text-[#8B5CF6]' : 'text-[#817D91]'
+                    }`}
                 >
                   <Icon className="w-4 h-4" />
                 </div>
@@ -51,4 +49,3 @@ export default function MobileNav() {
     </nav>
   );
 }
-

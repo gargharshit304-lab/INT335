@@ -96,14 +96,14 @@ export default function RoutinePage() {
   };
 
   const renderSectionHeader = (title, count, timeWindow) => (
-    <div className="flex items-center justify-between pb-2 border-b border-[#ECE9F2] pt-4 first:pt-0">
+    <div className="flex items-center justify-between pb-2 border-b border-[#ECE9F2] pt-3 first:pt-0">
       <div className="flex items-center gap-2">
-        <h3 className="text-sm font-bold font-heading text-[#242039] uppercase tracking-wider">
+        <h3 className="text-xs font-bold font-heading text-[#242039] uppercase tracking-wider">
           {title}
         </h3>
-        <span className="text-xs text-[#858197] font-medium">• {timeWindow}</span>
+        <span className="text-xs text-[#817D91] font-normal">• {timeWindow}</span>
       </div>
-      <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#FAF9FC] text-[#858197] border border-[#ECE9F2]">
+      <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-[#FAFAFC] text-[#817D91] border border-[#ECE9F2]">
         {count} activities
       </span>
     </div>
@@ -114,43 +114,43 @@ export default function RoutinePage() {
   const eveningItems = filteredRoutines.filter((r) => r.section === 'evening');
 
   return (
-    <div className="space-y-6 animate-in fade-in duration-300">
+    <div className="space-y-5 animate-in fade-in duration-200">
       {/* Top Header Card */}
-      <div className="bg-white border border-[#ECE9F2] rounded-3xl p-6 sm:p-8 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-6">
+      <div className="bg-white border border-[#ECE9F2] rounded-[20px] p-5 sm:p-6 shadow-[0_4px_20px_rgba(36,32,57,0.035)] flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2 mb-2">
-            <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#F0EBFF] text-[#6D28D9] border border-purple-100 flex items-center gap-1.5">
+          <div className="flex items-center gap-2 mb-1.5">
+            <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#F1EBFF] text-[#6D28D9] border border-purple-100 flex items-center gap-1.5">
               <CalendarCheck className="w-3.5 h-3.5 text-[#8B5CF6]" />
               Exam Week Routine Companion
             </span>
           </div>
-          <h2 className="text-2xl font-extrabold font-heading text-[#242039]">
+          <h2 className="text-xl sm:text-2xl font-bold font-heading text-[#242039] tracking-tight">
             Daily Routine Planner
           </h2>
-          <p className="text-sm text-[#858197] mt-1 max-w-xl">
+          <p className="text-xs sm:text-sm text-[#817D91] mt-0.5 max-w-xl">
             Structure your day into study blocks, nourishment, hydration, and restorative sleep to prevent pre-exam fatigue and crash.
           </p>
         </div>
 
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0">
-          <Button variant="primary" icon={Plus} onClick={handleOpenAdd}>
-            Add New Activity
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 shrink-0">
+          <Button variant="primary" icon={Plus} size="sm" onClick={handleOpenAdd}>
+            Add Activity
           </Button>
         </div>
       </div>
 
       {/* Routine Progress Overview Bar */}
-      <div className="bg-white border border-[#ECE9F2] rounded-3xl p-6 shadow-xs">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+      <div className="bg-white border border-[#ECE9F2] rounded-[20px] p-4 sm:p-5 shadow-[0_4px_20px_rgba(36,32,57,0.035)]">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2.5">
           <div className="flex items-center gap-2">
             <span className="text-sm font-bold font-heading text-[#242039]">
               Today's Schedule Progress
             </span>
-            <span className="text-xs font-bold text-[#8B5CF6] bg-[#F0EBFF] px-2 py-0.5 rounded-full">
+            <span className="text-xs font-bold text-[#8B5CF6] bg-[#F1EBFF] px-2 py-0.5 rounded-full">
               {routineCompletionPercentage}%
             </span>
           </div>
-          <div className="flex items-center gap-4 text-xs text-[#858197]">
+          <div className="flex items-center gap-3 text-xs text-[#817D91]">
             <span>
               Completed: <strong className="text-[#242039]">{completedRoutines}</strong>
             </span>
@@ -163,7 +163,7 @@ export default function RoutinePage() {
           </div>
         </div>
 
-        <div className="w-full bg-[#FAF9FC] h-3 rounded-full overflow-hidden border border-[#ECE9F2]">
+        <div className="w-full bg-[#FAFAFC] h-2.5 rounded-full overflow-hidden border border-[#ECE9F2]">
           <div
             className="bg-[#8B5CF6] h-full rounded-full transition-all duration-500 ease-out"
             style={{ width: `${routineCompletionPercentage}%` }}
@@ -172,7 +172,7 @@ export default function RoutinePage() {
       </div>
 
       {/* Filters Bar */}
-      <div className="bg-white border border-[#ECE9F2] rounded-3xl p-4 shadow-xs flex flex-wrap items-center justify-between gap-3">
+      <div className="bg-white border border-[#ECE9F2] rounded-[20px] p-3 sm:p-4 shadow-[0_4px_20px_rgba(36,32,57,0.035)] flex flex-wrap items-center justify-between gap-2.5">
         {/* Day Section Tabs */}
         <div className="flex flex-wrap items-center gap-1.5">
           {[
@@ -184,11 +184,10 @@ export default function RoutinePage() {
             <button
               key={tab.id}
               onClick={() => setActiveFilter(tab.id)}
-              className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
-                activeFilter === tab.id
-                  ? 'bg-[#8B5CF6] text-white shadow-xs'
-                  : 'bg-[#FAF9FC] text-[#858197] hover:text-[#242039] hover:bg-[#F0EBFF]/50'
-              }`}
+              className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${activeFilter === tab.id
+                  ? 'bg-[#8B5CF6] text-white shadow-2xs'
+                  : 'bg-[#FAFAFC] text-[#817D91] hover:text-[#242039] hover:bg-[#F1EBFF]/40'
+                }`}
             >
               {tab.label}
             </button>
@@ -197,15 +196,15 @@ export default function RoutinePage() {
 
         {/* Category Dropdown */}
         <div className="flex items-center gap-2">
-          <Filter className="w-3.5 h-3.5 text-[#858197]" />
+          <Filter className="w-3.5 h-3.5 text-[#817D91]" />
           <select
             value={categoryFilter}
             onChange={(e) => setCategoryFilter(e.target.value)}
-            className="text-xs font-medium text-[#242039] bg-[#FAF9FC] border border-[#ECE9F2] rounded-xl px-2.5 py-1.5 focus:outline-none focus:border-[#8B5CF6]"
+            className="text-xs font-medium text-[#242039] bg-[#FAFAFC] border border-[#ECE9F2] rounded-xl px-2.5 py-1.5 focus:outline-none focus:border-[#8B5CF6]"
           >
             {categories.map((c) => (
               <option key={c} value={c}>
-                Category: {c === 'all' ? 'All Categories' : c}
+                Category: {c === 'all' ? 'All' : c}
               </option>
             ))}
           </select>
@@ -213,23 +212,23 @@ export default function RoutinePage() {
       </div>
 
       {/* Timeline Routine List */}
-      <div className="bg-white border border-[#ECE9F2] rounded-3xl p-6 sm:p-8 shadow-xs space-y-6">
+      <div className="bg-white border border-[#ECE9F2] rounded-[20px] p-5 sm:p-6 shadow-[0_4px_20px_rgba(36,32,57,0.035)] space-y-6">
         {filteredRoutines.length === 0 ? (
           <div className="py-12 text-center">
-            <CalendarCheck className="w-12 h-12 text-[#858197]/40 mx-auto mb-3" />
-            <h4 className="text-base font-bold text-[#242039]">No activities match filters</h4>
-            <p className="text-xs text-[#858197] mt-1">Try switching to "All Day" or add a new activity.</p>
-            <Button variant="secondary" size="sm" className="mt-4" onClick={handleOpenAdd}>
+            <CalendarCheck className="w-10 h-10 text-[#A19BAD]/40 mx-auto mb-2" />
+            <h4 className="text-sm font-bold text-[#242039]">No activities match filters</h4>
+            <p className="text-xs text-[#817D91] mt-0.5">Try switching to "All Day" or add a new activity.</p>
+            <Button variant="secondary" size="sm" className="mt-3" onClick={handleOpenAdd}>
               + Add Activity
             </Button>
           </div>
         ) : (
-          <div className="space-y-8">
+          <div className="space-y-6">
             {/* Morning Section */}
             {(activeFilter === 'all' || activeFilter === 'morning') && morningItems.length > 0 && (
-              <div className="space-y-3">
+              <div className="space-y-2.5">
                 {renderSectionHeader('Morning Sprint', morningItems.length, '07:00 - 12:00')}
-                <div className="space-y-3">
+                <div className="space-y-2">
                   {morningItems.map((item) => renderRoutineCard(item))}
                 </div>
               </div>
@@ -237,9 +236,9 @@ export default function RoutinePage() {
 
             {/* Afternoon Section */}
             {(activeFilter === 'all' || activeFilter === 'afternoon') && afternoonItems.length > 0 && (
-              <div className="space-y-3">
+              <div className="space-y-2.5">
                 {renderSectionHeader('Afternoon Revision & Breaks', afternoonItems.length, '12:00 - 17:00')}
-                <div className="space-y-3">
+                <div className="space-y-2">
                   {afternoonItems.map((item) => renderRoutineCard(item))}
                 </div>
               </div>
@@ -247,9 +246,9 @@ export default function RoutinePage() {
 
             {/* Evening Section */}
             {(activeFilter === 'all' || activeFilter === 'evening') && eveningItems.length > 0 && (
-              <div className="space-y-3">
+              <div className="space-y-2.5">
                 {renderSectionHeader('Evening Review & Wind-down', eveningItems.length, '17:00 - 23:30')}
-                <div className="space-y-3">
+                <div className="space-y-2">
                   {eveningItems.map((item) => renderRoutineCard(item))}
                 </div>
               </div>
@@ -287,64 +286,61 @@ export default function RoutinePage() {
     return (
       <div
         key={item.id}
-        className={`group p-4 rounded-2xl border transition-all duration-150 flex items-start justify-between gap-4 ${
-          item.completed
-            ? 'bg-[#FAF9FC]/80 border-[#ECE9F2] opacity-75'
-            : 'bg-white border-[#ECE9F2] hover:border-purple-200 hover:shadow-xs'
-        }`}
+        className={`group p-3 sm:p-3.5 rounded-xl border transition-all duration-150 flex items-center justify-between gap-3 ${item.completed
+            ? 'bg-[#FAFAFC] border-[#ECE9F2]/80 opacity-75'
+            : 'bg-white border-[#ECE9F2] hover:border-[#DDD8E8] hover:shadow-2xs'
+          }`}
       >
         {/* Toggle Checkbox */}
         <button
           onClick={() => handleToggle(item.id, item.completed)}
-          className={`mt-0.5 rounded-full p-1 transition-colors ${
-            item.completed
-              ? 'text-emerald-500 bg-emerald-50'
-              : 'text-gray-300 hover:text-[#8B5CF6]'
-          }`}
+          className={`shrink-0 rounded-lg p-0.5 transition-colors ${item.completed
+              ? 'text-[#27AE82]'
+              : 'text-[#A19BAD] hover:text-[#8B5CF6]'
+            }`}
           aria-label={`Toggle ${item.title}`}
         >
           {item.completed ? (
-            <CheckCircle2 className="w-5 h-5 fill-emerald-100 text-emerald-600" />
+            <CheckCircle2 className="w-4.5 h-4.5 fill-[#EAF8F2] text-[#27AE82]" />
           ) : (
-            <Circle className="w-5 h-5" />
+            <Circle className="w-4.5 h-4.5" />
           )}
         </button>
 
         {/* Content */}
         <div className="flex-1 min-w-0">
-          <div className="flex flex-wrap items-center gap-2 mb-1">
+          <div className="flex flex-wrap items-center gap-1.5 mb-0.5">
             <span
-              className={`inline-flex items-center gap-1 text-[11px] font-semibold px-2.5 py-0.5 rounded-full border ${color.bg} ${color.text} ${color.border}`}
+              className={`inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-md border ${color.bg} ${color.text} ${color.border}`}
             >
               {getCategoryIcon(item.category)}
               {item.category}
             </span>
-            <span className="text-xs font-medium text-[#858197] flex items-center gap-1">
-              <Clock className="w-3.5 h-3.5" />
+            <span className="text-[11px] font-normal text-[#817D91] flex items-center gap-1">
+              <Clock className="w-3 h-3 text-[#A19BAD]" />
               {formatTime12h(item.time)} • {item.duration}
             </span>
           </div>
 
           <h4
-            className={`text-sm sm:text-base font-bold text-[#242039] transition-all ${
-              item.completed ? 'line-through text-[#858197]' : ''
-            }`}
+            className={`text-xs sm:text-sm font-semibold transition-all ${item.completed ? 'line-through text-[#817D91]' : 'text-[#242039]'
+              }`}
           >
             {item.title}
           </h4>
 
           {item.description && (
-            <p className="text-xs text-[#858197] mt-1 leading-relaxed">
+            <p className="text-[11px] text-[#817D91] mt-0.5 line-clamp-1">
               {item.description}
             </p>
           )}
         </div>
 
         {/* Actions (Edit / Delete) */}
-        <div className="flex items-center gap-1.5 opacity-90 sm:opacity-0 group-hover:opacity-100 transition-opacity">
+        <div className="flex items-center gap-1 opacity-90 sm:opacity-0 group-hover:opacity-100 transition-opacity">
           <button
             onClick={() => handleOpenEdit(item)}
-            className="p-1.5 text-[#858197] hover:text-[#8B5CF6] hover:bg-[#F0EBFF] rounded-lg transition-colors"
+            className="p-1.5 text-[#817D91] hover:text-[#8B5CF6] hover:bg-[#F1EBFF] rounded-lg transition-colors"
             title="Edit Activity"
             aria-label="Edit activity"
           >
@@ -352,7 +348,7 @@ export default function RoutinePage() {
           </button>
           <button
             onClick={() => setDeleteConfirmItem(item)}
-            className="p-1.5 text-[#858197] hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+            className="p-1.5 text-[#817D91] hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
             title="Delete Activity"
             aria-label="Delete activity"
           >
@@ -363,4 +359,3 @@ export default function RoutinePage() {
     );
   }
 }
-

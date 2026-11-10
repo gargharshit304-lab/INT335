@@ -2,15 +2,15 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 export default function ProgressRing({
-  radius = 48,
-  stroke = 8,
+  radius = 40,
+  stroke = 5,
   progress = 0, // 0 - 100
   color = '#8B5CF6',
-  trackColor = '#F0EBFF',
+  trackColor = '#F1EBFF',
   children,
   className = '',
 }) {
-  const normalizedRadius = radius - stroke * 2;
+  const normalizedRadius = radius - stroke;
   const circumference = normalizedRadius * 2 * Math.PI;
   const strokeDashoffset = circumference - (Math.min(progress, 100) / 100) * circumference;
 
@@ -38,7 +38,7 @@ export default function ProgressRing({
           strokeDasharray={`${circumference} ${circumference}`}
           initial={{ strokeDashoffset: circumference }}
           animate={{ strokeDashoffset }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           strokeLinecap="round"
           r={normalizedRadius}
           cx={radius}
@@ -50,7 +50,7 @@ export default function ProgressRing({
         {children ? (
           children
         ) : (
-          <span className="text-xl font-bold font-heading text-[#242039]">
+          <span className="text-base font-bold font-heading text-[#242039]">
             {Math.round(progress)}%
           </span>
         )}
@@ -58,4 +58,3 @@ export default function ProgressRing({
     </div>
   );
 }
-
