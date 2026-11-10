@@ -1,23 +1,23 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import {
   Zap,
   ArrowRight,
-  ShieldCheck,
-  CalendarCheck,
   Droplets,
   Moon,
+  CalendarCheck,
+  Utensils,
   BarChart3,
   Users,
-  Coffee,
   CheckCircle2,
   Clock,
   Sparkles,
-  Heart,
   ChevronRight,
-  AlertTriangle,
+  ShieldCheck,
+  AlertCircle,
+  Coffee,
 } from 'lucide-react';
-import Button from '../components/common/Button';
 import ProgressRing from '../components/common/ProgressRing';
 import { useApp } from '../context/AppContext';
 
@@ -31,36 +31,37 @@ export default function LandingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF9FC] text-[#242039] selection:bg-purple-100 selection:text-purple-900">
-      {/* SaaS Marketing Navbar */}
-      <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-[#ECE9F2] px-4 sm:px-8 py-3.5">
+    <div className="min-h-screen bg-[#FCFBFE] text-[#25213A] selection:bg-purple-100 selection:text-purple-900 font-sans">
+      {/* 1. NAVBAR */}
+      <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-[#EAE6F0] px-4 sm:px-8 py-3.5 transition-all">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          {/* Logo */}
+          {/* Left: Brand Logo with Custom Symbol */}
           <Link to="/" className="flex items-center gap-2.5 group">
-            <div className="w-9 h-9 rounded-2xl bg-[#8B5CF6] text-white flex items-center justify-center shadow-md shadow-purple-500/20 group-hover:scale-105 transition-transform">
-              <Zap className="w-5 h-5 fill-current" />
+            <div className="w-8 h-8 rounded-xl bg-[#8B5CF6] text-white flex items-center justify-center shadow-xs shadow-purple-500/20 group-hover:scale-105 transition-transform">
+              <Zap className="w-4.5 h-4.5 fill-current" />
             </div>
-            <div>
-              <span className="font-extrabold text-xl tracking-tight text-[#242039] font-heading flex items-center gap-1.5">
-                RECHARGE
-                <span className="w-1.5 h-1.5 rounded-full bg-[#10B981]"></span>
-              </span>
-            </div>
+            <span className="font-extrabold text-lg tracking-tight text-[#25213A] font-heading flex items-center gap-1.5">
+              RECHARGE
+              <span className="w-1.5 h-1.5 rounded-full bg-[#27AE82]"></span>
+            </span>
           </Link>
 
           {/* Center Navigation Links */}
-          <nav className="hidden md:flex items-center gap-7 text-xs font-semibold text-[#858197]">
-            <a href="#features" className="hover:text-[#242039] transition-colors">
+          <nav className="hidden md:flex items-center gap-8 text-xs font-semibold text-[#777387]">
+            <a href="#problem" className="hover:text-[#25213A] transition-colors">
+              The Reality
+            </a>
+            <a href="#product" className="hover:text-[#25213A] transition-colors">
+              Product
+            </a>
+            <a href="#features" className="hover:text-[#25213A] transition-colors">
               Features
             </a>
-            <a href="#how-it-works" className="hover:text-[#242039] transition-colors">
+            <a href="#how-it-works" className="hover:text-[#25213A] transition-colors">
               How It Works
             </a>
-            <a href="#problem" className="hover:text-[#242039] transition-colors">
-              The Problem
-            </a>
-            <a href="#academic" className="hover:text-[#242039] transition-colors">
-              About Project P13
+            <a href="#project" className="hover:text-[#25213A] transition-colors">
+              INT335 Story
             </a>
           </nav>
 
@@ -68,445 +69,781 @@ export default function LandingPage() {
           <div className="flex items-center gap-3">
             <Link
               to="/login"
-              className="text-xs font-semibold text-[#242039] hover:text-[#8B5CF6] px-3 py-2 transition-colors"
+              className="text-xs font-semibold text-[#777387] hover:text-[#25213A] px-2.5 py-1.5 transition-colors"
             >
               Log In
             </Link>
-            <Button
-              size="sm"
-              variant="primary"
+            <button
               onClick={handleDemoAccess}
-              className="hidden sm:inline-flex"
+              className="px-4 py-2 rounded-xl bg-[#8B5CF6] hover:bg-[#6D42D8] text-white text-xs font-semibold shadow-xs shadow-purple-500/20 transition-all active:scale-98 flex items-center gap-1.5"
             >
-              Explore Demo →
-            </Button>
+              <span>Get Started</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </button>
           </div>
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section className="pt-12 sm:pt-20 pb-16 sm:pb-24 px-4 sm:px-8 relative overflow-hidden">
-        {/* Subtle background glow */}
-        <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[600px] h-[350px] bg-[#8B5CF6]/10 rounded-full blur-3xl pointer-events-none -z-10" />
-
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          {/* Left Hero Content (7 cols) */}
-          <div className="lg:col-span-7 space-y-6">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#F0EBFF] text-[#6D28D9] border border-purple-200/80 text-xs font-semibold">
+      {/* 2. HERO SECTION — TWO COLUMN EDITORIAL PRESENTATION */}
+      <section className="pt-12 sm:pt-16 pb-16 sm:pb-24 px-4 sm:px-8 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+          {/* Left Column: Typography & CTAs (6 cols) */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="lg:col-span-6 space-y-6"
+          >
+            {/* Small Label */}
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#F2EDFF] text-[#6D42D8] border border-purple-100 text-[11px] font-bold tracking-wider uppercase">
               <Sparkles className="w-3.5 h-3.5 text-[#8B5CF6]" />
-              LPU INT335 Project P13 • Exam Week Without the Crash
+              Your Exam Week Companion
             </div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black font-heading text-[#242039] tracking-tight leading-[1.1]">
+            {/* Headline */}
+            <h1 className="text-4xl sm:text-5xl lg:text-[54px] font-black font-heading text-[#25213A] tracking-tight leading-[1.08]">
               Your exams matter. <br />
-              <span className="text-[#8B5CF6]">Your routine does too.</span>
+              <span className="text-[#6D42D8] relative inline-block">
+                Your well-being
+                <span className="absolute bottom-1.5 left-0 w-full h-2.5 bg-[#F2EDFF] -z-10 rounded-full" />
+              </span>{' '}
+              does too.
             </h1>
 
-            <p className="text-base sm:text-lg text-[#858197] leading-relaxed max-w-xl">
-              Study hard. Stay balanced. Don't crash. An exam-week routine companion built for university students to maintain eating habits, hydration, sleep consistency, and study breaks through MTT & ETT periods.
+            {/* Supporting Text */}
+            <p className="text-base sm:text-lg text-[#777387] leading-relaxed max-w-xl">
+              Exam season gets demanding. RECHARGE helps you stay on top of your daily routines, from meals and hydration to sleep and study breaks.
             </p>
 
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-2">
-              <Button
-                size="lg"
-                variant="primary"
-                icon={ArrowRight}
-                iconPosition="right"
+            {/* Buttons */}
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
+              <button
                 onClick={handleDemoAccess}
+                className="px-6 py-3.5 rounded-xl bg-[#8B5CF6] hover:bg-[#6D42D8] text-white text-sm font-bold shadow-sm shadow-purple-500/25 transition-all flex items-center justify-center gap-2 active:scale-98"
               >
-                Build My Routine
-              </Button>
-              <a href="#features">
-                <Button size="lg" variant="outline" className="w-full sm:w-auto">
-                  Explore Features
-                </Button>
+                <span>Build My Routine</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+              <a
+                href="#features"
+                className="px-5 py-3.5 rounded-xl bg-white hover:bg-[#F2EDFF]/40 text-[#25213A] border border-[#EAE6F0] hover:border-purple-200 text-sm font-semibold transition-all text-center"
+              >
+                Explore Features
               </a>
             </div>
 
-            {/* Quick trust metrics */}
-            <div className="pt-6 border-t border-[#ECE9F2] flex flex-wrap items-center gap-6 text-xs text-[#858197]">
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-[#10B981]" />
-                <span>Zero medical claims</span>
+            {/* Trust Statement */}
+            <div className="pt-4 border-t border-[#EAE6F0] flex items-center gap-2.5 text-xs text-[#777387]">
+              <div className="w-5 h-5 rounded-full bg-[#E9F7F0] text-[#27AE82] flex items-center justify-center shrink-0">
+                <CheckCircle2 className="w-3.5 h-3.5" />
               </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-[#10B981]" />
-                <span>Paced circadian balance</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-[#10B981]" />
-                <span>Simulated peer circles</span>
-              </div>
+              <span>Designed for real student routines during examination weeks.</span>
             </div>
-          </div>
+          </motion.div>
 
-          {/* Right Hero Dashboard Preview (5 cols) */}
-          <div className="lg:col-span-5 relative">
-            <div className="bg-white border border-[#ECE9F2] rounded-3xl p-6 shadow-2xl shadow-purple-950/10 space-y-4 relative">
-              {/* Top status bar inside mockup */}
-              <div className="flex items-center justify-between pb-3 border-b border-[#ECE9F2]">
-                <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-xl bg-[#8B5CF6] text-white flex items-center justify-center font-bold text-xs">
-                    R
-                  </div>
-                  <div>
-                    <p className="text-xs font-bold text-[#242039]">Rohan Sharma</p>
-                    <p className="text-[10px] text-[#858197]">LPU INT335 • Day 3 of MTT</p>
-                  </div>
-                </div>
-                <span className="text-[10px] font-bold text-[#059669] bg-[#E8F8F0] px-2.5 py-0.5 rounded-full">
-                  81% Balanced
-                </span>
+          {/* Right Column: Editorial Lifestyle Photography with Overlaid UI Cards (6 cols) */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+            className="lg:col-span-6 relative"
+          >
+            {/* Main Editorial Image */}
+            <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-purple-950/10 border border-[#EAE6F0] bg-white aspect-[4/3.8] sm:aspect-[4/3.5]">
+              <img
+                src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=1200&auto=format&fit=crop&q=85"
+                alt="University student studying calmly at a desk with notebook, laptop, and natural window light"
+                className="w-full h-full object-cover object-center"
+                loading="eager"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none" />
+            </div>
+
+            {/* Overlaid Floating UI Element 1: Hydration Progress */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="absolute -top-4 -left-3 sm:-left-6 bg-white/95 backdrop-blur-md border border-[#EAE6F0] rounded-2xl p-3.5 shadow-xl shadow-purple-950/8 flex items-center gap-3 z-10"
+            >
+              <div className="w-9 h-9 rounded-xl bg-sky-50 text-sky-500 flex items-center justify-center shrink-0">
+                <Droplets className="w-5 h-5 fill-current" />
               </div>
-
-              {/* Mockup circular score */}
-              <div className="p-4 rounded-2xl bg-[#FAF9FC] border border-[#ECE9F2] flex items-center justify-between">
-                <div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#858197]">
-                    Today's Progress
+              <div className="pr-1">
+                <div className="flex items-center gap-1.5">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-sky-600">
+                    Hydration Logged
                   </span>
-                  <h4 className="text-sm font-bold text-[#242039]">9 of 13 Activities Done</h4>
-                  <p className="text-[11px] text-[#858197] mt-0.5">Hydration & study blocks on track</p>
+                  <span className="w-1.5 h-1.5 rounded-full bg-sky-400" />
                 </div>
-                <ProgressRing radius={36} stroke={6} progress={72} color="#8B5CF6">
-                  <span className="text-xs font-bold text-[#242039]">72%</span>
-                </ProgressRing>
+                <p className="text-xs font-bold text-[#25213A] mt-0.5">
+                  1,750 / 2,500 ml <span className="text-[10px] font-normal text-[#777387]">• 70%</span>
+                </p>
               </div>
+            </motion.div>
 
-              {/* Mockup mini metrics */}
-              <div className="grid grid-cols-2 gap-2.5 text-xs">
-                <div className="p-3 rounded-xl bg-sky-50 border border-sky-100">
-                  <div className="flex items-center gap-1.5 text-sky-700 font-semibold mb-0.5">
-                    <Droplets className="w-3.5 h-3.5 fill-current" />
-                    Hydration
-                  </div>
-                  <strong className="text-sm font-bold text-[#242039]">1,750 / 2,500ml</strong>
-                </div>
+            {/* Overlaid Floating UI Element 2: Today's Routine Completion Ring */}
+            <motion.div
+              initial={{ opacity: 0, y: -15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="absolute -bottom-5 -right-3 sm:-right-6 bg-white/95 backdrop-blur-md border border-[#EAE6F0] rounded-2xl p-3.5 shadow-xl shadow-purple-950/8 flex items-center gap-3.5 z-10"
+            >
+              <ProgressRing radius={26} stroke={4} progress={81} color="#8B5CF6">
+                <span className="text-[11px] font-bold text-[#25213A]">81%</span>
+              </ProgressRing>
+              <div>
+                <p className="text-xs font-bold text-[#25213A]">Today's Balance</p>
+                <p className="text-[11px] text-[#777387]">8 of 10 habits completed</p>
+              </div>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
 
-                <div className="p-3 rounded-xl bg-indigo-50 border border-indigo-100">
-                  <div className="flex items-center gap-1.5 text-indigo-700 font-semibold mb-0.5">
-                    <Moon className="w-3.5 h-3.5 fill-current" />
-                    Sleep Logged
-                  </div>
-                  <strong className="text-sm font-bold text-[#242039]">7.5 hrs Restful</strong>
+      {/* 3. PROBLEM SECTION — EXAM WEEK REALITY (EDITORIAL TWO-COLUMN LAYOUT) */}
+      <section id="problem" className="py-20 sm:py-28 bg-white border-y border-[#EAE6F0] px-4 sm:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+            {/* Left: Large Editorial Photo of Late-Night Study Environment (5 cols) */}
+            <div className="lg:col-span-5 relative">
+              <div className="relative rounded-3xl overflow-hidden border border-[#EAE6F0] shadow-lg shadow-purple-950/5 aspect-[4/4.5] sm:aspect-[4/3.8] lg:aspect-[4/4.5]">
+                <img
+                  src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=1000&auto=format&fit=crop&q=85"
+                  alt="Student study desk with open books, stationery, and laptop during late revision"
+                  className="w-full h-full object-cover object-center"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#25213A]/50 via-transparent to-transparent pointer-events-none" />
+                <div className="absolute bottom-4 left-4 right-4 p-4 rounded-2xl bg-white/90 backdrop-blur-md border border-white/40">
+                  <p className="text-xs font-semibold text-[#25213A]">
+                    "When exams approach, student routines are typically the first thing to collapse."
+                  </p>
+                  <span className="text-[10px] text-[#777387] mt-0.5 block">
+                    — LPU INT335 Project P13 Student Research
+                  </span>
                 </div>
               </div>
+            </div>
 
-              {/* Sample Timeline Item */}
-              <div className="p-3 rounded-xl bg-white border border-purple-200 flex items-center justify-between text-xs">
-                <div className="flex items-center gap-2.5">
-                  <span className="w-2 h-2 rounded-full bg-[#8B5CF6]" />
-                  <div>
-                    <span className="font-semibold text-[#242039]">INT335 Mock Exam Review</span>
-                    <p className="text-[10px] text-[#858197]">14:30 • 75 mins study block</p>
-                  </div>
-                </div>
-                <span className="text-[10px] font-bold text-[#8B5CF6] bg-[#F0EBFF] px-2 py-0.5 rounded-full">
-                  Next Up
+            {/* Right: Editorial Narrative & 4 Compact Problem Statements (7 cols) */}
+            <div className="lg:col-span-7 space-y-8">
+              <div className="space-y-3">
+                <span className="text-xs font-bold uppercase tracking-wider text-rose-600 bg-rose-50 border border-rose-100 px-3 py-1 rounded-full inline-block">
+                  The Exam Week Reality
                 </span>
+                <h2 className="text-3xl sm:text-4xl font-extrabold font-heading text-[#25213A] tracking-tight leading-tight">
+                  Exam pressure shouldn't mean neglecting yourself.
+                </h2>
+                <p className="text-sm sm:text-base text-[#777387] leading-relaxed">
+                  During examination weeks, everyday routines are often the first things students sacrifice. In the scramble to cover syllabus notes, students inadvertently compromise the very biological habits that power memory, focus, and emotional stamina.
+                </p>
               </div>
 
-              {/* Interactive Demo Action Button */}
-              <button
-                onClick={handleDemoAccess}
-                className="w-full py-2.5 bg-[#8B5CF6] hover:bg-[#7C3AED] text-white text-xs font-bold rounded-xl transition-all shadow-sm flex items-center justify-center gap-1.5"
-              >
-                <span>Launch Interactive Prototype</span>
-                <ChevronRight className="w-4 h-4" />
-              </button>
+              {/* 4 Compact Problem Statements (Not Large Identical Cards) */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                <div className="p-4 rounded-2xl bg-[#FCFBFE] border border-[#EAE6F0] flex items-start gap-3.5">
+                  <div className="w-8 h-8 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0 mt-0.5">
+                    <Utensils className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-bold text-[#25213A]">Skipping Meals</h3>
+                    <p className="text-xs text-[#777387] mt-0.5 leading-relaxed">
+                      Replacing wholesome nutrition with sugary snacks or missing lunch, creating sudden glucose and cognitive dips.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-[#FCFBFE] border border-[#EAE6F0] flex items-start gap-3.5">
+                  <div className="w-8 h-8 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center shrink-0 mt-0.5">
+                    <Droplets className="w-4 h-4 fill-current" />
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-bold text-[#25213A]">Forgetting Hydration</h3>
+                    <p className="text-xs text-[#777387] mt-0.5 leading-relaxed">
+                      Hours of sitting in the library without water, sparking headaches, dry eyes, and sluggish brain processing.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-[#FCFBFE] border border-[#EAE6F0] flex items-start gap-3.5">
+                  <div className="w-8 h-8 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0 mt-0.5">
+                    <Moon className="w-4 h-4 fill-current" />
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-bold text-[#25213A]">All-Night Sessions</h3>
+                    <p className="text-xs text-[#777387] mt-0.5 leading-relaxed">
+                      Trading restorative circadian sleep for erratic naps, which actively degrades memory consolidation before test day.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-[#FCFBFE] border border-[#EAE6F0] flex items-start gap-3.5">
+                  <div className="w-8 h-8 rounded-xl bg-purple-50 text-[#8B5CF6] flex items-center justify-center shrink-0 mt-0.5">
+                    <Coffee className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-bold text-[#25213A]">Missing Study Breaks</h3>
+                    <p className="text-xs text-[#777387] mt-0.5 leading-relaxed">
+                      Cramming non-stop without neural rest intervals, leading to diminishing retention and intense exam anxiety.
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Section A: The Problem */}
-      <section id="problem" className="py-16 sm:py-24 bg-white border-y border-[#ECE9F2] px-4 sm:px-8">
-        <div className="max-w-7xl mx-auto space-y-12">
-          <div className="text-center max-w-2xl mx-auto space-y-3">
-            <span className="text-xs font-bold uppercase tracking-wider text-red-600 bg-red-50 border border-red-100 px-3 py-1 rounded-full">
-              The Exam Week Reality
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold font-heading text-[#242039]">
-              How university exam pressure causes the crash
-            </h2>
-            <p className="text-sm sm:text-base text-[#858197]">
-              During midterm and end-term exam weeks, students sacrifice fundamental routines in a rush to cram, resulting in cognitive fatigue and sudden crashes.
-            </p>
-          </div>
+      {/* 4. PRODUCT SHOWCASE — INTRODUCING RECHARGE */}
+      <section id="product" className="py-20 sm:py-28 px-4 sm:px-8 max-w-7xl mx-auto text-center space-y-12">
+        <div className="max-w-2xl mx-auto space-y-3">
+          <span className="text-xs font-bold uppercase tracking-wider text-[#8B5CF6] bg-[#F2EDFF] border border-purple-100 px-3 py-1 rounded-full inline-block">
+            Introducing RECHARGE
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-extrabold font-heading text-[#25213A] tracking-tight">
+            One place for your everyday balance.
+          </h2>
+          <p className="text-sm sm:text-base text-[#777387] leading-relaxed">
+            Build routines, track your progress, and make room for the things that keep you going.
+          </p>
+        </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              {
-                icon: AlertTriangle,
-                title: 'Skipping Meals',
-                desc: 'Replacing nutritious meals with sugary snacks or missing food entirely, causing sharp glucose and energy dips.',
-                color: 'text-amber-600 bg-amber-50',
-              },
-              {
-                icon: Droplets,
-                title: 'Severe Dehydration',
-                desc: 'Sitting for hours in the library without drinking water, leading to headaches, dry eyes, and loss of concentration.',
-                color: 'text-sky-600 bg-sky-50',
-              },
-              {
-                icon: Moon,
-                title: 'All-Nighter Burnout',
-                desc: 'Disrupting circadian sleep rhythm with 3-4 hour erratic naps, damaging short-term memory consolidation.',
-                color: 'text-indigo-600 bg-indigo-50',
-              },
-              {
-                icon: Coffee,
-                title: 'Cramming Without Breaks',
-                desc: 'Studying continuously without neural rest intervals, resulting in diminishing retention and intense exam anxiety.',
-                color: 'text-purple-600 bg-purple-50',
-              },
-            ].map((p, i) => (
-              <div
-                key={i}
-                className="p-6 rounded-3xl bg-[#FAF9FC] border border-[#ECE9F2] hover:border-gray-300 transition-all flex flex-col justify-between"
-              >
+        {/* Desktop Browser Window Mockup with Implemented UI Representation */}
+        <div className="relative max-w-5xl mx-auto">
+          {/* Laptop / Browser Shell */}
+          <div className="bg-white border border-[#EAE6F0] rounded-3xl shadow-2xl shadow-purple-950/10 overflow-hidden text-left">
+            {/* Window Chrome Header */}
+            <div className="h-10 bg-[#FAF9FC] border-b border-[#EAE6F0] px-4 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-rose-400" />
+                <span className="w-2.5 h-2.5 rounded-full bg-amber-400" />
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
+              </div>
+              <div className="px-4 py-1 rounded-lg bg-white border border-[#EAE6F0] text-[10px] text-[#777387] font-mono flex items-center gap-2">
+                <span>app.recharge.study/dashboard</span>
+              </div>
+              <span className="w-12" />
+            </div>
+
+            {/* Mockup Dashboard Content */}
+            <div className="p-6 sm:p-8 bg-[#FCFBFE] space-y-5">
+              {/* Top Banner Row inside mockup */}
+              <div className="p-4 sm:p-5 rounded-2xl bg-white border border-[#EAE6F0] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div>
-                  <div className={`w-10 h-10 rounded-2xl flex items-center justify-center mb-4 ${p.color}`}>
-                    <p.icon className="w-5 h-5" />
+                  <div className="flex items-center gap-2 text-[10px] font-semibold text-[#777387] mb-1">
+                    <span className="px-2 py-0.5 rounded-full bg-[#F2EDFF] text-[#6D42D8]">
+                      Tue, Nov 10
+                    </span>
+                    <span>• LPU INT335 Prototype</span>
                   </div>
-                  <h3 className="text-base font-bold font-heading text-[#242039] mb-2">
-                    {p.title}
-                  </h3>
-                  <p className="text-xs text-[#858197] leading-relaxed">{p.desc}</p>
+                  <h4 className="text-base sm:text-lg font-bold font-heading text-[#25213A]">
+                    Good evening, Rohan!
+                  </h4>
+                  <p className="text-xs text-[#777387]">Let's make today a balanced one.</p>
+                </div>
+
+                <div className="flex items-center gap-3 bg-[#FCFBFE] border border-[#EAE6F0] p-2.5 rounded-xl self-start sm:self-auto">
+                  <div className="w-8 h-8 rounded-lg bg-[#8B5CF6] text-white flex flex-col items-center justify-center font-bold text-xs">
+                    <span>4</span>
+                    <span className="text-[7px] uppercase leading-none">days</span>
+                  </div>
+                  <div className="text-xs">
+                    <span className="text-[10px] font-bold text-[#8B5CF6] uppercase">MTT Exam Week</span>
+                    <p className="font-bold text-[#25213A]">Design Thinking</p>
+                  </div>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* Section B: Six Core Modules (Features) */}
-      <section id="features" className="py-16 sm:py-24 px-4 sm:px-8">
-        <div className="max-w-7xl mx-auto space-y-12">
-          <div className="text-center max-w-2xl mx-auto space-y-3">
-            <span className="text-xs font-bold uppercase tracking-wider text-[#8B5CF6] bg-[#F0EBFF] px-3 py-1 rounded-full border border-purple-100">
-              Six Core Pillars
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold font-heading text-[#242039]">
-              Engineered for student balance & focus
-            </h2>
-            <p className="text-sm sm:text-base text-[#858197]">
-              Every module in RECHARGE directly addresses the four behavioural routines students neglect during exam pressure.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              {
-                icon: CalendarCheck,
-                title: 'Daily Routine Planner',
-                desc: 'Chronological timeline dividing your day into paced morning, afternoon, and evening revision and nourishment slots.',
-                badge: 'Routine',
-                link: '/app/routine',
-              },
-              {
-                icon: Droplets,
-                title: 'Hydration Tracker',
-                desc: 'Visual fluid gauge, custom presets, 7-day intake history, and gentle non-medical prompts to maintain stamina.',
-                badge: 'Hydration',
-                link: '/app/hydration',
-              },
-              {
-                icon: Moon,
-                title: 'Circadian Sleep Tracker',
-                desc: 'Bedtime and wake-up recording, duration calculations, and target consistency bands for cognitive memory consolidation.',
-                badge: 'Sleep',
-                link: '/app/sleep',
-              },
-              {
-                icon: Coffee,
-                title: 'Study Breaks & Meals',
-                desc: 'Structured break prompts and meal check-in tracking so you never sacrifice nutrition or mental resets.',
-                badge: 'Rest & Fuel',
-                link: '/app/dashboard',
-              },
-              {
-                icon: BarChart3,
-                title: 'Routine Analytics',
-                desc: 'Comprehensive charts, habit heatmaps, and descriptive progress insights generated from your demonstration data.',
-                badge: 'Insights',
-                link: '/app/progress',
-              },
-              {
-                icon: Users,
-                title: 'Study Buddy Circle',
-                desc: 'Simulated peer accountability: send high-fives, share circle goals, and remind peers to stay paced and rested.',
-                badge: 'Accountability',
-                link: '/app/buddy',
-              },
-            ].map((f, i) => (
-              <div
-                key={i}
-                className="bg-white border border-[#ECE9F2] hover:border-purple-200 rounded-3xl p-6 sm:p-7 shadow-xs hover:shadow-md transition-all flex flex-col justify-between group"
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="w-11 h-11 rounded-2xl bg-[#F0EBFF] text-[#6D28D9] flex items-center justify-center group-hover:bg-[#8B5CF6] group-hover:text-white transition-colors">
-                      <f.icon className="w-5 h-5" />
-                    </div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#8B5CF6] bg-[#FAF9FC] px-2.5 py-1 rounded-full border border-[#ECE9F2]">
-                      {f.badge}
+              {/* 3 Metric Cards inside mockup */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div className="p-4 rounded-2xl bg-white border border-[#EAE6F0]">
+                  <span className="text-[10px] font-bold uppercase text-[#777387]">Today's Balance</span>
+                  <div className="flex items-center justify-between mt-1">
+                    <span className="text-xl font-bold font-heading text-[#25213A]">81%</span>
+                    <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-[#E9F7F0] text-[#27AE82]">
+                      On Track
                     </span>
                   </div>
-                  <h3 className="text-lg font-bold font-heading text-[#242039] mb-2">
-                    {f.title}
-                  </h3>
-                  <p className="text-xs text-[#858197] leading-relaxed">{f.desc}</p>
+                  <p className="text-[11px] text-[#777387] mt-1">8 of 10 habits completed</p>
                 </div>
 
-                <div className="pt-4 mt-4 border-t border-[#ECE9F2] flex items-center justify-between text-xs font-semibold text-[#8B5CF6]">
-                  <button onClick={handleDemoAccess} className="hover:underline flex items-center gap-1">
-                    Try Module <ChevronRight className="w-3.5 h-3.5" />
-                  </button>
+                <div className="p-4 rounded-2xl bg-white border border-[#EAE6F0]">
+                  <span className="text-[10px] font-bold uppercase text-[#777387]">Hydration</span>
+                  <div className="flex items-center justify-between mt-1">
+                    <span className="text-xl font-bold font-heading text-[#25213A]">1,750 ml</span>
+                    <span className="text-[10px] font-semibold text-sky-600 bg-sky-50 px-2 py-0.5 rounded-full">
+                      70%
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-[#777387] mt-1">750 ml remaining to goal</p>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-white border border-[#EAE6F0]">
+                  <span className="text-[10px] font-bold uppercase text-[#777387]">Sleep Consistency</span>
+                  <div className="flex items-center justify-between mt-1">
+                    <span className="text-xl font-bold font-heading text-[#25213A]">7.5 hrs</span>
+                    <span className="text-[10px] font-semibold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full">
+                      Restful
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-[#777387] mt-1">Bedtime kept within target band</p>
                 </div>
               </div>
-            ))}
+
+              {/* Sample Routine Checklist inside mockup */}
+              <div className="p-4 rounded-2xl bg-white border border-[#EAE6F0] space-y-2">
+                <span className="text-xs font-bold text-[#25213A]">Today's Paced Timeline</span>
+                <div className="space-y-1.5 pt-1">
+                  {[
+                    { time: '08:00 AM', title: 'Nourishing Breakfast (Oats & fruit)', tag: 'Meal', done: true },
+                    { time: '09:00 AM', title: 'Deep Focus: Design Thinking Revision', tag: 'Study', done: true },
+                    { time: '10:30 AM', title: 'Hydration & Shoulder Stretch Break', tag: 'Break', done: true },
+                    { time: '14:30 PM', title: 'Operating Systems Problem Sets', tag: 'Study', done: false },
+                  ].map((item, idx) => (
+                    <div
+                      key={idx}
+                      className="flex items-center justify-between p-2 rounded-xl bg-[#FCFBFE] border border-[#EAE6F0] text-xs"
+                    >
+                      <div className="flex items-center gap-2.5">
+                        <span
+                          className={`w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold ${item.done
+                              ? 'bg-[#E9F7F0] text-[#27AE82]'
+                              : 'border border-[#EAE6F0] text-gray-300'
+                            }`}
+                        >
+                          {item.done ? '✓' : ''}
+                        </span>
+                        <span className={item.done ? 'line-through text-[#777387]' : 'font-medium text-[#25213A]'}>
+                          {item.title}
+                        </span>
+                      </div>
+                      <span className="text-[10px] text-[#777387]">{item.time}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Interactive Button Overlay */}
+          <div className="mt-6 flex justify-center">
+            <button
+              onClick={handleDemoAccess}
+              className="px-5 py-2.5 rounded-xl bg-[#8B5CF6] hover:bg-[#6D42D8] text-white text-xs font-bold shadow-md shadow-purple-500/20 transition-all flex items-center gap-2"
+            >
+              <span>Explore Interactive Live Dashboard</span>
+              <ChevronRight className="w-4 h-4" />
+            </button>
           </div>
         </div>
       </section>
 
-      {/* Section C: How It Works */}
-      <section id="how-it-works" className="py-16 sm:py-24 bg-white border-y border-[#ECE9F2] px-4 sm:px-8">
-        <div className="max-w-7xl mx-auto space-y-12">
+      {/* 5. FEATURES — SIX DISTINCT MODULES WITH PHOTOGRAPHY */}
+      <section id="features" className="py-20 sm:py-28 bg-white border-t border-[#EAE6F0] px-4 sm:px-8">
+        <div className="max-w-7xl mx-auto space-y-14">
           <div className="text-center max-w-2xl mx-auto space-y-3">
-            <span className="text-xs font-bold uppercase tracking-wider text-[#8B5CF6] bg-[#F0EBFF] px-3 py-1 rounded-full border border-purple-100">
-              Simple 4-Step Flow
+            <span className="text-xs font-bold uppercase tracking-wider text-[#8B5CF6] bg-[#F2EDFF] border border-purple-100 px-3 py-1 rounded-full inline-block">
+              Balanced System
             </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold font-heading text-[#242039]">
-              How RECHARGE guides your exam week
+            <h2 className="text-3xl sm:text-4xl font-extrabold font-heading text-[#25213A] tracking-tight">
+              Everything you need to stay balanced.
             </h2>
-            <p className="text-sm sm:text-base text-[#858197]">
-              Simple, sustainable pacing that fits seamlessly into your university study schedule.
+            <p className="text-sm sm:text-base text-[#777387] leading-relaxed">
+              Six dedicated areas engineered to maintain your everyday rhythm while studying for examinations.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              {
-                step: '01',
-                title: 'Set Your Exam Schedule',
-                desc: 'Input upcoming examination dates, subjects (MTT / ETT), and preferred daily study hours in seconds.',
-              },
-              {
-                step: '02',
-                title: 'Build Your Daily Routine',
-                desc: 'Plan realistic morning, afternoon, and evening blocks with mandatory meal and break buffers.',
-              },
-              {
-                step: '03',
-                title: 'Track Everyday Habits',
-                desc: 'Log water sips with one click, check in meals on time, and record restorative sleep intervals.',
-              },
-              {
-                step: '04',
-                title: 'Review Your Progress',
-                desc: 'Gain clear descriptive insights and stay encouraged with your study circle without burning out.',
-              },
-            ].map((s, i) => (
-              <div
-                key={i}
-                className="p-6 rounded-3xl bg-[#FAF9FC] border border-[#ECE9F2] relative flex flex-col justify-between"
-              >
-                <div>
-                  <span className="text-3xl font-black font-heading text-[#8B5CF6]/25 block mb-2">
-                    {s.step}
+          {/* 6 Image-Led Feature Cards (Balanced 3-column Grid) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            {/* Feature A: Daily Routine Planner */}
+            <div className="rounded-3xl border border-[#EAE6F0] bg-[#FCFBFE] overflow-hidden hover:shadow-lg hover:border-purple-200 transition-all group flex flex-col justify-between">
+              <div>
+                <div className="h-52 overflow-hidden bg-gray-100 relative">
+                  <img
+                    src="https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=800&auto=format&fit=crop&q=80"
+                    alt="Student organizing daily checklist and planner on desk"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                  <span className="absolute top-3 left-3 bg-white/95 backdrop-blur-md px-2.5 py-1 rounded-full text-[10px] font-bold text-[#8B5CF6] uppercase tracking-wider border border-[#EAE6F0]">
+                    Paced Schedule
                   </span>
-                  <h3 className="text-base font-bold font-heading text-[#242039] mb-2">
-                    {s.title}
+                </div>
+                <div className="p-6 space-y-2">
+                  <h3 className="text-lg font-bold font-heading text-[#25213A]">
+                    Daily Routine Planner
                   </h3>
-                  <p className="text-xs text-[#858197] leading-relaxed">{s.desc}</p>
+                  <p className="text-xs text-[#777387] leading-relaxed">
+                    Chronological timeline dividing your day into sustainable morning, afternoon, and evening revision and break buffers.
+                  </p>
                 </div>
               </div>
-            ))}
+              <div className="px-6 pb-6 pt-2">
+                <button
+                  onClick={handleDemoAccess}
+                  className="text-xs font-bold text-[#8B5CF6] hover:text-[#6D42D8] flex items-center gap-1 group-hover:translate-x-1 transition-all"
+                >
+                  <span>Explore Routine Planner</span>
+                  <ChevronRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </div>
+
+            {/* Feature B: Hydration Tracker */}
+            <div className="rounded-3xl border border-[#EAE6F0] bg-[#FCFBFE] overflow-hidden hover:shadow-lg hover:border-purple-200 transition-all group flex flex-col justify-between">
+              <div>
+                <div className="h-52 overflow-hidden bg-gray-100 relative">
+                  <img
+                    src="https://images.unsplash.com/photo-1548839140-29a749e1bc4e?w=800&auto=format&fit=crop&q=80"
+                    alt="Aesthetic water bottle and glass with sunlight on desk"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                  <span className="absolute top-3 left-3 bg-white/95 backdrop-blur-md px-2.5 py-1 rounded-full text-[10px] font-bold text-sky-600 uppercase tracking-wider border border-[#EAE6F0]">
+                    Hydration Habits
+                  </span>
+                </div>
+                <div className="p-6 space-y-2">
+                  <h3 className="text-lg font-bold font-heading text-[#25213A]">
+                    Hydration Tracker
+                  </h3>
+                  <p className="text-xs text-[#777387] leading-relaxed">
+                    Visual fluid progress indicator with custom quick-add presets, 7-day intake charts, and gentle desk reminders.
+                  </p>
+                </div>
+              </div>
+              <div className="px-6 pb-6 pt-2">
+                <button
+                  onClick={handleDemoAccess}
+                  className="text-xs font-bold text-sky-600 hover:text-sky-800 flex items-center gap-1 group-hover:translate-x-1 transition-all"
+                >
+                  <span>Explore Hydration</span>
+                  <ChevronRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </div>
+
+            {/* Feature C: Sleep Routine Tracker */}
+            <div className="rounded-3xl border border-[#EAE6F0] bg-[#FCFBFE] overflow-hidden hover:shadow-lg hover:border-purple-200 transition-all group flex flex-col justify-between">
+              <div>
+                <div className="h-52 overflow-hidden bg-gray-100 relative">
+                  <img
+                    src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=800&auto=format&fit=crop&q=80"
+                    alt="Calm peaceful bedroom with soft daylight on linen"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                  <span className="absolute top-3 left-3 bg-white/95 backdrop-blur-md px-2.5 py-1 rounded-full text-[10px] font-bold text-indigo-600 uppercase tracking-wider border border-[#EAE6F0]">
+                    Circadian Rest
+                  </span>
+                </div>
+                <div className="p-6 space-y-2">
+                  <h3 className="text-lg font-bold font-heading text-[#25213A]">
+                    Sleep Routine Tracker
+                  </h3>
+                  <p className="text-xs text-[#777387] leading-relaxed">
+                    Bedtime and wake-up duration recording with target consistency bands to preserve cognitive consolidation.
+                  </p>
+                </div>
+              </div>
+              <div className="px-6 pb-6 pt-2">
+                <button
+                  onClick={handleDemoAccess}
+                  className="text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center gap-1 group-hover:translate-x-1 transition-all"
+                >
+                  <span>Explore Sleep Module</span>
+                  <ChevronRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </div>
+
+            {/* Feature D: Study Breaks & Meals */}
+            <div className="rounded-3xl border border-[#EAE6F0] bg-[#FCFBFE] overflow-hidden hover:shadow-lg hover:border-purple-200 transition-all group flex flex-col justify-between">
+              <div>
+                <div className="h-52 overflow-hidden bg-gray-100 relative">
+                  <img
+                    src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=800&auto=format&fit=crop&q=80"
+                    alt="Fresh healthy meal bowl and nutritious student lunch"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                  <span className="absolute top-3 left-3 bg-white/95 backdrop-blur-md px-2.5 py-1 rounded-full text-[10px] font-bold text-[#27AE82] uppercase tracking-wider border border-[#EAE6F0]">
+                    Fuel & Reset
+                  </span>
+                </div>
+                <div className="p-6 space-y-2">
+                  <h3 className="text-lg font-bold font-heading text-[#25213A]">
+                    Study Breaks & Meals
+                  </h3>
+                  <p className="text-xs text-[#777387] leading-relaxed">
+                    Meal check-in tracking and structured break intervals to guarantee your brain gets fuel and mental rests.
+                  </p>
+                </div>
+              </div>
+              <div className="px-6 pb-6 pt-2">
+                <button
+                  onClick={handleDemoAccess}
+                  className="text-xs font-bold text-[#27AE82] hover:text-emerald-800 flex items-center gap-1 group-hover:translate-x-1 transition-all"
+                >
+                  <span>Explore Breaks & Meals</span>
+                  <ChevronRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </div>
+
+            {/* Feature E: Routine Analytics */}
+            <div className="rounded-3xl border border-[#EAE6F0] bg-[#FCFBFE] overflow-hidden hover:shadow-lg hover:border-purple-200 transition-all group flex flex-col justify-between">
+              <div>
+                <div className="h-52 overflow-hidden bg-gray-100 relative">
+                  <img
+                    src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&auto=format&fit=crop&q=80"
+                    alt="Modern data visualization charts and trends on screen"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                  <span className="absolute top-3 left-3 bg-white/95 backdrop-blur-md px-2.5 py-1 rounded-full text-[10px] font-bold text-[#8B5CF6] uppercase tracking-wider border border-[#EAE6F0]">
+                    Descriptive Insights
+                  </span>
+                </div>
+                <div className="p-6 space-y-2">
+                  <h3 className="text-lg font-bold font-heading text-[#25213A]">
+                    Routine Analytics
+                  </h3>
+                  <p className="text-xs text-[#777387] leading-relaxed">
+                    7-day trend charts, 28-day habit consistency heatmaps, and local descriptive insights without clinical jargon.
+                  </p>
+                </div>
+              </div>
+              <div className="px-6 pb-6 pt-2">
+                <button
+                  onClick={handleDemoAccess}
+                  className="text-xs font-bold text-[#8B5CF6] hover:text-[#6D42D8] flex items-center gap-1 group-hover:translate-x-1 transition-all"
+                >
+                  <span>Explore Progress</span>
+                  <ChevronRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </div>
+
+            {/* Feature F: Study Buddy Circle */}
+            <div className="rounded-3xl border border-[#EAE6F0] bg-[#FCFBFE] overflow-hidden hover:shadow-lg hover:border-purple-200 transition-all group flex flex-col justify-between">
+              <div>
+                <div className="h-52 overflow-hidden bg-gray-100 relative">
+                  <img
+                    src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&auto=format&fit=crop&q=80"
+                    alt="Group of university students studying together in a warm library"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                  <span className="absolute top-3 left-3 bg-white/95 backdrop-blur-md px-2.5 py-1 rounded-full text-[10px] font-bold text-amber-600 uppercase tracking-wider border border-[#EAE6F0]">
+                    Peer Accountability
+                  </span>
+                </div>
+                <div className="p-6 space-y-2">
+                  <h3 className="text-lg font-bold font-heading text-[#25213A]">
+                    Study Buddy Circle
+                  </h3>
+                  <p className="text-xs text-[#777387] leading-relaxed">
+                    Simulated peer accountability: share daily circle goals and send encouraging reaction nudges to keep peers steady.
+                  </p>
+                </div>
+              </div>
+              <div className="px-6 pb-6 pt-2">
+                <button
+                  onClick={handleDemoAccess}
+                  className="text-xs font-bold text-amber-600 hover:text-amber-800 flex items-center gap-1 group-hover:translate-x-1 transition-all"
+                >
+                  <span>Explore Study Circle</span>
+                  <ChevronRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Section D: Academic Design Thinking Context */}
-      <section id="academic" className="py-16 sm:py-20 px-4 sm:px-8">
-        <div className="max-w-4xl mx-auto bg-gradient-to-br from-[#F0EBFF]/70 via-white to-[#E8F8F0]/40 border border-purple-200/80 rounded-3xl p-8 sm:p-12 shadow-sm space-y-6">
+      {/* 6. HOW IT WORKS — HORIZONTAL 4-STEP PROCESS TIMELINE */}
+      <section id="how-it-works" className="py-20 sm:py-28 bg-[#FCFBFE] border-t border-[#EAE6F0] px-4 sm:px-8">
+        <div className="max-w-7xl mx-auto space-y-16">
+          <div className="text-center max-w-2xl mx-auto space-y-3">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#8B5CF6] bg-[#F2EDFF] border border-purple-100 px-3 py-1 rounded-full inline-block">
+              Clear Flow
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold font-heading text-[#25213A] tracking-tight">
+              Small habits. Better exam weeks.
+            </h2>
+            <p className="text-sm sm:text-base text-[#777387] leading-relaxed">
+              A straightforward four-step approach designed to fit naturally into your revision schedule.
+            </p>
+          </div>
+
+          {/* Horizontal Step Timeline on Desktop, Vertical on Mobile */}
+          <div className="relative">
+            {/* Connecting Line on Desktop */}
+            <div className="hidden lg:block absolute top-7 left-12 right-12 h-0.5 bg-[#EAE6F0] -z-0" />
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10">
+              {[
+                {
+                  step: '01',
+                  title: 'Set Your Exam Schedule',
+                  desc: 'Add your upcoming assessments and important dates into your calendar countdown.',
+                },
+                {
+                  step: '02',
+                  title: 'Build Your Daily Routine',
+                  desc: 'Plan meals, study sessions, hydration breaks, and non-negotiable sleep windows.',
+                },
+                {
+                  step: '03',
+                  title: 'Track Everyday Habits',
+                  desc: 'Check in with your daily activities, log water with one click, and stay steady.',
+                },
+                {
+                  step: '04',
+                  title: 'Review Your Progress',
+                  desc: 'See your weekly patterns, maintain pacing, and avoid pre-exam fatigue.',
+                },
+              ].map((s, idx) => (
+                <div key={idx} className="space-y-3 bg-[#FCFBFE] lg:bg-transparent p-5 lg:p-0 rounded-2xl border lg:border-0 border-[#EAE6F0]">
+                  <div className="w-14 h-14 rounded-2xl bg-white border border-[#EAE6F0] shadow-xs flex items-center justify-center font-black font-heading text-lg text-[#8B5CF6]">
+                    {s.step}
+                  </div>
+                  <h3 className="text-base font-bold font-heading text-[#25213A]">
+                    {s.title}
+                  </h3>
+                  <p className="text-xs text-[#777387] leading-relaxed">
+                    {s.desc}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 7. INT335 PROJECT INFORMATION — ACADEMIC DESIGN THINKING IDENTITY */}
+      <section id="project" className="py-16 sm:py-24 bg-white border-t border-[#EAE6F0] px-4 sm:px-8">
+        <div className="max-w-4xl mx-auto rounded-3xl border border-[#EAE6F0] p-8 sm:p-12 bg-[#FCFBFE] space-y-6">
           <div className="flex items-center gap-2">
             <ShieldCheck className="w-5 h-5 text-[#8B5CF6]" />
-            <span className="text-xs font-bold uppercase tracking-wider text-[#6D28D9]">
-              Academic Design Thinking Prototype
+            <span className="text-xs font-bold uppercase tracking-wider text-[#6D42D8]">
+              Academic Design Thinking Project
             </span>
           </div>
 
-          <h3 className="text-2xl sm:text-3xl font-extrabold font-heading text-[#242039]">
-            LPU INT335 Project P13 — Exam Week Without The Crash
+          <h3 className="text-2xl sm:text-3xl font-extrabold font-heading text-[#25213A] tracking-tight">
+            Built around a real campus challenge.
           </h3>
 
-          <p className="text-sm text-[#858197] leading-relaxed">
-            This application is an educational prototype developed under the <strong>Design Thinking & Innovation (INT335)</strong> curriculum at Lovely Professional University. It explores how student-centered routines, empathy-driven habit tracking, and non-judgmental accountability can help learners sustain cognitive endurance during heavy academic testing cycles.
+          <p className="text-sm text-[#777387] leading-relaxed">
+            RECHARGE was created as an educational prototype for <strong>LPU INT335 (Design Thinking & Innovation)</strong> under the theme <em>Project P13 — Exam Week Without the Crash</em>.
           </p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-purple-100/80 text-xs text-[#858197]">
+          <p className="text-xs text-[#777387] leading-relaxed">
+            Through campus empathy interviews and user journey mapping, the project revealed that university students don't need another generic study timer; they need behavioral scaffolding to protect eating, drinking, and sleeping during heavy assessment weeks.
+          </p>
+
+          <div className="pt-4 border-t border-[#EAE6F0] grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs text-[#777387]">
             <div>
-              <strong className="text-[#242039] block font-semibold">Course Code:</strong>
+              <span className="font-bold text-[#25213A] block">Curriculum:</span>
               INT335 Design Thinking
             </div>
             <div>
-              <strong className="text-[#242039] block font-semibold">Project Code:</strong>
-              Project P13
+              <span className="font-bold text-[#25213A] block">Design Project:</span>
+              P13 Exam Week Companion
             </div>
             <div>
-              <strong className="text-[#242039] block font-semibold">Core Focus:</strong>
-              Exam Week Routine Companion
+              <span className="font-bold text-[#25213A] block">Prototype Type:</span>
+              Academic Frontend Simulation
             </div>
           </div>
         </div>
       </section>
 
-      {/* Section E: Closing CTA Banner */}
-      <section className="py-16 sm:py-20 bg-gradient-to-r from-[#8B5CF6] to-[#7C3AED] text-white px-4 sm:px-8">
-        <div className="max-w-4xl mx-auto text-center space-y-6">
-          <h2 className="text-3xl sm:text-4xl font-black font-heading tracking-tight">
-            Make your exam week more balanced.
-          </h2>
-          <p className="text-sm sm:text-base text-purple-100 max-w-xl mx-auto leading-relaxed">
-            Step into the complete interactive prototype. Track routines, log hydration, manage sleep schedules, and connect with your study circle.
-          </p>
-          <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
-            <button
-              onClick={handleDemoAccess}
-              className="px-6 py-3 rounded-2xl bg-white text-[#6D28D9] font-bold text-sm shadow-lg hover:bg-purple-50 transition-all active:scale-98"
-            >
-              Launch Interactive Demo
-            </button>
-            <Link
-              to="/signup"
-              className="px-6 py-3 rounded-2xl bg-purple-700/60 hover:bg-purple-700 text-white font-semibold text-sm border border-purple-400/40 transition-all"
-            >
-              Create Student Account
-            </Link>
+      {/* 8. FINAL CTA SECTION — EDITORIAL PHOTOGRAPHIC BANNER */}
+      <section className="py-20 sm:py-28 px-4 sm:px-8 max-w-7xl mx-auto">
+        <div className="relative rounded-3xl overflow-hidden border border-[#EAE6F0] shadow-2xl shadow-purple-950/10 min-h-[360px] sm:min-h-[400px] flex items-center justify-center p-8 sm:p-14 text-center">
+          {/* Background Photography with Warm/Soft Dark Overlay */}
+          <img
+            src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=1600&auto=format&fit=crop&q=85"
+            alt="Warm library with clean wooden study desks in natural afternoon daylight"
+            className="absolute inset-0 w-full h-full object-cover object-center"
+            loading="lazy"
+          />
+          <div className="absolute inset-0 bg-[#25213A]/75 backdrop-blur-2xs" />
+
+          {/* Banner Content */}
+          <div className="relative z-10 max-w-2xl mx-auto space-y-6 text-white">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black font-heading tracking-tight leading-tight">
+              Make your exam week more balanced.
+            </h2>
+            <p className="text-sm sm:text-base text-gray-200 leading-relaxed max-w-lg mx-auto">
+              Build routines that make room for studying, resting, and everything in between.
+            </p>
+
+            <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3.5">
+              <button
+                onClick={handleDemoAccess}
+                className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-[#8B5CF6] hover:bg-[#6D42D8] text-white text-sm font-bold shadow-lg shadow-purple-900/30 transition-all flex items-center justify-center gap-2 active:scale-98"
+              >
+                <span>Launch Interactive Demo</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+              <Link
+                to="/signup"
+                className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 text-white border border-white/25 text-sm font-semibold transition-all text-center"
+              >
+                Create Student Account
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Section F: Footer */}
-      <footer className="bg-white border-t border-[#ECE9F2] px-4 sm:px-8 py-10 text-xs text-[#858197]">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-2.5">
-            <div className="w-7 h-7 rounded-xl bg-[#8B5CF6] text-white flex items-center justify-center font-bold">
-              <Zap className="w-4 h-4 fill-current" />
+      {/* 9. FOOTER */}
+      <footer className="bg-white border-t border-[#EAE6F0] px-4 sm:px-8 py-12 text-xs text-[#777387]">
+        <div className="max-w-7xl mx-auto space-y-8">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 pb-8 border-b border-[#EAE6F0]">
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-xl bg-[#8B5CF6] text-white flex items-center justify-center font-bold">
+                <Zap className="w-4 h-4 fill-current" />
+              </div>
+              <span className="font-extrabold text-lg text-[#25213A] font-heading">
+                RECHARGE
+              </span>
             </div>
-            <span className="font-extrabold text-base text-[#242039] font-heading">
-              RECHARGE
-            </span>
-            <span className="text-[11px]">• Study hard. Stay balanced. Don't crash.</span>
+            <p className="text-xs text-[#777387]">
+              Study hard. Stay balanced. Don't crash.
+            </p>
           </div>
 
-          <p className="text-center sm:text-right">
-            LPU INT335 Project P13 Prototype • Academic Design Thinking Demonstration
-          </p>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-[11px] text-[#777387]">
+            <div className="flex items-center gap-6">
+              <a href="#problem" className="hover:text-[#25213A] transition-colors">
+                The Reality
+              </a>
+              <a href="#product" className="hover:text-[#25213A] transition-colors">
+                Product
+              </a>
+              <a href="#features" className="hover:text-[#25213A] transition-colors">
+                Features
+              </a>
+              <a href="#how-it-works" className="hover:text-[#25213A] transition-colors">
+                How It Works
+              </a>
+              <a href="#project" className="hover:text-[#25213A] transition-colors">
+                About Project P13
+              </a>
+            </div>
+
+            <p className="text-[#777387]">
+              LPU INT335 Project P13 Prototype • Academic Design Thinking Demonstration
+            </p>
+          </div>
         </div>
       </footer>
     </div>
   );
 }
-
